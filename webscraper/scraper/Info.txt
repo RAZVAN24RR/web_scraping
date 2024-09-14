@@ -1,6 +1,0 @@
- Numpy
- Pandas
- Django
- Lelenium
- OOP Python
- PowerBi
