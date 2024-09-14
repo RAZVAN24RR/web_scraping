@@ -7,8 +7,8 @@ from selenium.webdriver.common.keys import Keys
 
 def setup_selenium_driver():
     options = Options()
-    # options.headless = False
-    chrome_service = Service(executable_path='../webdriver/chromedriver-linux64/chromedriver')
+    options.headless = True
+    chrome_service = Service(executable_path='/home/razvan/Desktop/Nokia/web_scraping/web_scraper/myapp/webdriver/chromedriver-linux64/chromedriver')
     driver = webdriver.Chrome(service=chrome_service, options=options)
     return driver
 
@@ -62,6 +62,6 @@ def search_wikipedia(subject):
     finally:
         driver.quit()  # Închide browserul
 
-article = search_wikipedia("Formula 1");
-print("---------")
-print(article)
+# article = search_wikipedia("Formula 1");
+# print("---------")
+# print(article)
