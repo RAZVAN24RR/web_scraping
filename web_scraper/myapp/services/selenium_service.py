@@ -40,23 +40,15 @@ def search_wikipedia(subject):
 
         title = driver.find_element(By.CLASS_NAME, "mw-page-title-main");
 
-        print(title.text)
-
         first_paragraph = driver.find_element(By.XPATH, "//div[@class='mw-content-ltr mw-parser-output']/p")
 
         second_paragraph = driver.find_element(By.XPATH, "//div[@class='mw-content-ltr mw-parser-output']/p[2]")
 
-        print(first_paragraph.text[:200])
-
-        time.sleep(3)
-
-        print(second_paragraph.text[:200])
-
-        time.sleep(5)
+        time.sleep(1)
         return {
             "title": title.text,
-            "paragraph1": first_paragraph.text,
-            "paragraph2": second_paragraph.text,
+            "paragraph1": first_paragraph.text[:200],
+            "paragraph2": second_paragraph.text[:200],
         }
 
     finally:

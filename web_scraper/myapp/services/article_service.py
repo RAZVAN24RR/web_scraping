@@ -12,6 +12,7 @@ def create_article(title, paragraph1, paragraph2):
     return article
 
 def get_subject_from_wikipedia(subject):
-    print(subject);
     article = search_wikipedia(subject);
-    print(article);
+    articleData = Article.objects.create(title=article["title"],paragraph1=article["paragraph1"], paragraph2=article["paragraph2"])
+    log_article_to_terminal(article["title"],article["paragraph1"],article["paragraph2"])
+    return article;

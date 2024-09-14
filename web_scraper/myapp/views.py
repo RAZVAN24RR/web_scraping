@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from myapp.services.article_service import create_article, get_subject_from_wikipedia
+from myapp.models import Article
 
 @csrf_exempt
 def create_article_view(request):
@@ -29,5 +30,19 @@ def get_subject_from_wikipedia_view(request):
             return JsonResponse({"message": "Subject received by server"});
         return JsonResponse({"error": "Missing data in request"}, status=400)
     return JsonResponse({"error": "Invalid method"}, status=405)
+
+def get_all_articles_view(request):
+    if request.method == 'GET':
+        articles = Article.objects.all()
+
+        articles_list = []
+        for article in articles:
+            articles_list.append({
+                "title": article.title,
+                "paragraph1": article.paragraph1[:100],
+                "paragraph2": article.paragraph2[:100]
+            })
+        return JsonResponse({"articles": articles_list})
+    return JsonResponse({"error": "Invalid request method"}, status=400)
 
 # Create your views here.
