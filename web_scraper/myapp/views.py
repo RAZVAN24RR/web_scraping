@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.shortcuts import get_object_or_404
 from myapp.services.article_service import create_article, get_subject_from_wikipedia
 from myapp.models import Article
 
@@ -44,5 +45,18 @@ def get_all_articles_view(request):
             })
         return JsonResponse({"articles": articles_list})
     return JsonResponse({"error": "Invalid request method"}, status=400)
+
+def get_article_by_id_view(request, article_id):
+    if request.method == 'GET':
+        article = get_object_or_404(Article, id=article_id)
+    
+        article_data = {
+            "title": article.title,
+            "paragraph1": article.paragraph1[:200],
+            "paragraph2": article.paragraph2[:200],
+        }
+        return JsonResponse(article_data)
+    
+    return JsonResponse({"error": "Invalid request method"}, status=405)
 
 # Create your views here.
